@@ -1,21 +1,17 @@
 {
   "name": "prop-types-callable",
-  "version": "15.5.6",
+  "version": "15.5.7",
   "description": "Runtime type checking for React props and similar objects.",
   "main": "build/prop-types.min.js",
-  "license": "BSD-3-Clause",
-  "repository": "eliot-akira/prop-types-callable",
-  "keywords": [
-    "react"
-  ],
-  "dependencies": {
-    "fbjs": "^0.8.9"
-  },
   "scripts": {
     "test": "jest",
     "umd": "NODE_ENV=development browserify src/index.js -t envify --standalone PropTypes -o build/prop-types.js",
     "umd-min": "NODE_ENV=production browserify src/index.js -t envify --standalone PropTypes -o | uglifyjs --compress unused,dead_code -o build/prop-types.min.js",
-    "build": "mkdir -p build && yarn umd && yarn umd-min"
+    "build": "mkdir -p build && yarn umd && yarn umd-min",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "fbjs": "^0.8.9"
   },
   "devDependencies": {
     "babel-jest": "^19.0.0",
@@ -25,5 +21,11 @@
     "jest": "^19.0.2",
     "react": "^15.5.1",
     "uglifyjs": "^2.4.10"
-  }
+  },
+  "keywords": [
+    "react",
+    "prop-types"
+  ],
+  "repository": "eliot-akira/prop-types-callable",
+  "license": "BSD-3-Clause"
 }
