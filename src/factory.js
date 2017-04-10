@@ -13,7 +13,7 @@ var emptyFunction = require('fbjs/lib/emptyFunction');
 var invariant = require('fbjs/lib/invariant');
 var warning = require('fbjs/lib/warning');
 
-var ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');
+var ReactPropTypesSecret = '';
 var checkPropTypes = require('./checkPropTypes');
 
 module.exports = function (isValidElement) {
@@ -93,7 +93,7 @@ module.exports = function (isValidElement) {
 
   var ReactPropTypes;
 
-  if (process.env.NODE_ENV !== 'production') {
+//  if (process.env.NODE_ENV !== 'production') {
     // Keep in sync with production version below
     ReactPropTypes = {
       array: createPrimitiveTypeChecker('array'),
@@ -114,7 +114,7 @@ module.exports = function (isValidElement) {
       oneOfType: createUnionTypeChecker,
       shape: createShapeTypeChecker
     };
-  } else {
+/*  } else {
     var productionTypeChecker = function () {
       invariant(false, 'React.PropTypes type checking code is stripped in production.');
     };
@@ -143,7 +143,7 @@ module.exports = function (isValidElement) {
       shape: getProductionTypeChecker
     };
   }
-
+*/
   /**
    * inlined Object.is polyfill to avoid requiring consumers ship their own
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
@@ -177,13 +177,13 @@ module.exports = function (isValidElement) {
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    if (process.env.NODE_ENV !== 'production') {
+/*    if (process.env.NODE_ENV !== 'production') {
       var manualPropTypeCallCache = {};
-    }
+    }*/
     function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
       componentName = componentName || ANONYMOUS;
       propFullName = propFullName || propName;
-      if (process.env.NODE_ENV !== 'production') {
+/*      if (process.env.NODE_ENV !== 'production') {
         if (secret !== ReactPropTypesSecret && typeof console !== 'undefined') {
           var cacheKey = componentName + ':' + propName;
           if (!manualPropTypeCallCache[cacheKey]) {
@@ -191,7 +191,7 @@ module.exports = function (isValidElement) {
             manualPropTypeCallCache[cacheKey] = true;
           }
         }
-      }
+      }*/
       if (props[propName] == null) {
         if (isRequired) {
           if (props[propName] === null) {
@@ -279,7 +279,7 @@ module.exports = function (isValidElement) {
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      /* process.env.NODE_ENV !== 'production' ? */ warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') // : void 0;
       return emptyFunction.thatReturnsNull;
     }
 
@@ -322,7 +322,7 @@ module.exports = function (isValidElement) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      /* process.env.NODE_ENV !== 'production' ? */ warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') // : void 0;
       return emptyFunction.thatReturnsNull;
     }
 
@@ -479,6 +479,7 @@ module.exports = function (isValidElement) {
 
   ReactPropTypes.checkPropTypes = checkPropTypes;
   ReactPropTypes.PropTypes = ReactPropTypes;
+  ReactPropTypes.PropTypeError = PropTypeError;
 
   return ReactPropTypes;
 };
