@@ -1,8 +1,8 @@
 {
   "name": "prop-types-callable",
-  "version": "15.5.7",
+  "version": "15.5.8",
   "description": "Runtime type checking for React props and similar objects.",
-  "main": "build/prop-types.min.js",
+  "main": "build/prop-types.js",
   "scripts": {
     "test": "jest",
     "umd": "NODE_ENV=development browserify src/index.js -t envify --standalone PropTypes -o build/prop-types.js",
